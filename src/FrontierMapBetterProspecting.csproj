@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>FrontierMapBetterProspecting</AssemblyName>
+    <RootNamespace>FrontierMapBetterProspecting</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <EnableTargetingPackDownload>false</EnableTargetingPackDownload>
+    <EnableRuntimePackDownload>false</EnableRuntimePackDownload>
+    <DisableTransitiveFrameworkReferenceDownloads>true</DisableTransitiveFrameworkReferenceDownloads>
+    <VintageStoryPath Condition="'$(VintageStoryPath)' == ''">$(VINTAGE_STORY_PATH)</VintageStoryPath>
+    <FrontiersMapPath Condition="'$(FrontiersMapPath)' == ''">$(MSBuildProjectDirectory)/../references/frontiers-map-net10_1.0.6/ItemFrontiersMap.dll</FrontiersMapPath>
+    <BetterErProspectingPath Condition="'$(BetterErProspectingPath)' == ''">$(MSBuildProjectDirectory)/../references/bettererprospecting_3.4.5/BetterErProspecting.dll</BetterErProspectingPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="VintagestoryAPI" HintPath="$(VintageStoryPath)/VintagestoryAPI.dll" Private="false" />
+    <Reference Include="VintagestoryLib" HintPath="$(VintageStoryPath)/VintagestoryLib.dll" Private="false" />
+    <Reference Include="VSSurvivalMod" HintPath="$(VintageStoryPath)/Mods/VSSurvivalMod.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(VintageStoryPath)/Lib/0Harmony.dll" Private="false" />
+    <Reference Include="ItemFrontiersMap" HintPath="$(FrontiersMapPath)" Private="false" />
+    <Reference Include="BetterErProspecting" HintPath="$(BetterErProspectingPath)" Private="false" />
+  </ItemGroup>
+
+  <Target Name="RequireReferences" BeforeTargets="CoreCompile">
+    <Error Condition="'$(VintageStoryPath)' == ''" Text="Set VintageStoryPath or VINTAGE_STORY_PATH to a Vintage Story installation before building." />
+    <Error Condition="'$(VintageStoryPath)' != '' and !Exists('$(VintageStoryPath)/VintagestoryAPI.dll')" Text="Vintage Story API reference not found under '$(VintageStoryPath)'." />
+    <Error Condition="'$(VintageStoryPath)' != '' and !Exists('$(VintageStoryPath)/Mods/VSSurvivalMod.dll')" Text="VSSurvivalMod reference not found under '$(VintageStoryPath)/Mods'." />
+    <Error Condition="'$(VintageStoryPath)' != '' and !Exists('$(VintageStoryPath)/Lib/0Harmony.dll')" Text="Harmony reference not found under '$(VintageStoryPath)/Lib'." />
+    <Error Condition="!Exists('$(FrontiersMapPath)')" Text="Frontier's Map reference not found at '$(FrontiersMapPath)'." />
+    <Error Condition="!Exists('$(BetterErProspectingPath)')" Text="BetterEr Prospecting reference not found at '$(BetterErProspectingPath)'." />
+  </Target>
+
+  <Target Name="CopyModManifest" AfterTargets="Build">
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/../modinfo.json" DestinationFolder="$(TargetDir)" />
+  </Target>
+</Project>
