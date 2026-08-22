@@ -3,13 +3,17 @@
 This Vintage Story compatibility mod forwards completed prospecting density
 readings from BetterEr Prospecting to Frontier's Map.
 
-BetterEr Prospecting's new density mode does not call the vanilla
+BetterEr Prospecting's density mode does not call the vanilla
 `ItemProspectingPick.PrintProbeResults` method patched by Frontier's Map. This
 mod instead listens at `ModSystemOreMap.DidProbe`, where the final reading is
 already available, and sends that exact reading through Frontier's existing
 network, naming-dialog, storage, and prospecting-pin workflow. Map tooltips
 include the vanilla quality label (Very poor through Ultra high) and show two
 decimal places, so a value such as 0.03 is retained.
+
+Frontier's Map 2.0.0 moved the saved-reading renderer into `DrawProspEntry`;
+the compatibility patch selects that method and retains the older
+`OnDrawProspectingPanel` fallback for earlier releases.
 
 The compatibility applies to density readings. BetterEr's node, proximity,
 stone, and borehole search modes are intentionally unchanged.

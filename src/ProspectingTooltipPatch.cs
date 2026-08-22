@@ -10,10 +10,11 @@ internal static class ProspectingTooltipPatch
 {
     private static IEnumerable<MethodBase> TargetMethods()
     {
-        yield return AccessTools.Method(typeof(GuiDialogMap), "OnDrawProspectingPanel")
+        yield return AccessTools.Method(typeof(GuiDialogMap), "DrawProspEntry")
+            ?? AccessTools.Method(typeof(GuiDialogMap), "OnDrawProspectingPanel")
             ?? throw new MissingMethodException(
                 typeof(GuiDialogMap).FullName,
-                "OnDrawProspectingPanel"
+                "OnDrawProspectingPanel or DrawProspEntry"
             );
         yield return AccessTools.Method(typeof(GuiDialogMap), "DrawProspectingTooltip")
             ?? throw new MissingMethodException(
