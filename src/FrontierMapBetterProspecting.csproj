@@ -13,7 +13,7 @@
     <EnableRuntimePackDownload>false</EnableRuntimePackDownload>
     <DisableTransitiveFrameworkReferenceDownloads>true</DisableTransitiveFrameworkReferenceDownloads>
     <VintageStoryPath Condition="'$(VintageStoryPath)' == ''">$(VINTAGE_STORY_PATH)</VintageStoryPath>
-    <FrontiersMapPath Condition="'$(FrontiersMapPath)' == ''">$(MSBuildProjectDirectory)/../references/frontiers-map-net10_2.0.0/ItemFrontiersMap.dll</FrontiersMapPath>
+    <FrontiersMapPath Condition="'$(FrontiersMapPath)' == ''">$(MSBuildProjectDirectory)/../references/frontiers-map-net10_2.0.1/ItemFrontiersMap.dll</FrontiersMapPath>
     <BetterErProspectingPath Condition="'$(BetterErProspectingPath)' == ''">$(MSBuildProjectDirectory)/../references/bettererprospecting_3.4.5/BetterErProspecting.dll</BetterErProspectingPath>
   </PropertyGroup>
 

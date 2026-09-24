@@ -11,9 +11,10 @@ network, naming-dialog, storage, and prospecting-pin workflow. Map tooltips
 include the vanilla quality label (Very poor through Ultra high) and show two
 decimal places, so a value such as 0.03 is retained.
 
-Frontier's Map 2.0.0 moved the saved-reading renderer into `DrawProspEntry`;
-the compatibility patch selects that method and retains the older
-`OnDrawProspectingPanel` fallback for earlier releases.
+Frontier's Map 2.0 moved the saved-reading renderer into `DrawProspEntry`.
+Version 2.0.1 already formats readings to two decimal places; the compatibility
+patch accepts that format and still upgrades `0.0` to `0.00` on earlier
+versions. It retains the older `OnDrawProspectingPanel` fallback.
 
 The compatibility applies to density readings. BetterEr's node, proximity,
 stone, and borehole search modes are intentionally unchanged.

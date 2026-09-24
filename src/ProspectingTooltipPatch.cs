@@ -27,27 +27,33 @@ internal static class ProspectingTooltipPatch
         IEnumerable<CodeInstruction> instructions
     )
     {
-        var replaced = false;
+        var formatFound = false;
 
         foreach (var instruction in instructions)
         {
             if (
                 instruction.opcode == OpCodes.Ldstr
                 && instruction.operand is string format
-                && format == "0.0"
             )
             {
-                instruction.operand = "0.00";
-                replaced = true;
+                if (format == "0.0")
+                {
+                    instruction.operand = "0.00";
+                    formatFound = true;
+                }
+                else if (format == "0.00")
+                {
+                    formatFound = true;
+                }
             }
 
             yield return instruction;
         }
 
-        if (!replaced)
+        if (!formatFound)
         {
             throw new InvalidOperationException(
-                "Frontier's Map prospecting tooltip format string was not found."
+                "Frontier's Map prospecting tooltip format string (0.0 or 0.00) was not found."
             );
         }
     }
